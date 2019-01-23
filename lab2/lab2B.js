@@ -54,11 +54,11 @@ const data = {
             "d) error"
         ]
     }
-}
+};
 
 const inputQTemplate = () => {
     for (let i = 1; i <= 5; ++i) {
-        document.getElementById('temp').innerHTML += `<div class="col-sm-11 offset-sm-1">
+        document.getElementById('temp').innerHTML += `<div style="display: none" class="col-sm-11 offset-sm-1" id="Q${i}">
     <p id="q${i}"></p>
     <div>
         <span id="q${i}a"><input  type="radio" name="q${i}"></span><br>
@@ -68,7 +68,7 @@ const inputQTemplate = () => {
     </div>
     </div>`
     }
-}
+};
 
 const insertQ = (data) => {
     document.getElementById(`q${1}`).innerHTML = data.q1.question;
@@ -76,7 +76,7 @@ const insertQ = (data) => {
     document.getElementById(`q${3}`).innerHTML = data.q3.question;
     document.getElementById(`q${4}`).innerHTML = data.q4.question;
     document.getElementById(`q${5}`).innerHTML = data.q5.question;
-}
+};
 
 const insertA = (data) => {
     let alphabet = 97;
@@ -87,10 +87,19 @@ const insertA = (data) => {
         document.getElementById(`q4${String.fromCharCode(alphabet + i)}`).innerHTML += data.q4.answers[i];
         document.getElementById(`q5${String.fromCharCode(alphabet + i)}`).innerHTML += data.q5.answers[i];
     }
-}
+};
 
+const showQuestions = () => {
+
+    let input = prompt("Please enter the number of questions to display");
+    for (let i = 1; i <= input; ++i) {
+        document.getElementById(`Q${i}`).style.display = "block";
+    }
+};
 
 inputQTemplate();
 insertQ(data);
 insertA(data);
+showQuestions();
+
 
