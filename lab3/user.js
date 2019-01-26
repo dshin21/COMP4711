@@ -1,5 +1,5 @@
 let main = $("#main")[0];
-var questionBank = JSON.parse(localStorage.getItem("questionBank"));
+let questionBank = JSON.parse(localStorage.getItem("questionBank"));
 let i = 1;
 
 const renderQuestions = () => {
@@ -8,18 +8,29 @@ const renderQuestions = () => {
   } else {
     let oneQAset = `<div id='Q${i}'>
     <div>Question Text: </div>
-    <textarea class='qText${i}' rows="4" cols="50"></textarea><br/>                
+    <textarea readonly  class='textArea' rows="4" cols="50"></textarea><br/>                
     <div>Answers: </div>
-    <input type="radio" name="q${i}"> <input type="text" name="FirstName${i}"><br/>  
-    <input type="radio" name="q${i}"> <input type="text" name="FirstName${i}"><br/>  
-    <input type="radio" name="q${i}"> <input type="text" name="FirstName${i}"><br/>  
-    <input type="radio" name="q${i}"> <input type="text" name="FirstName${i}"><br/>
-    <button type="button" id="${i}" class="deleteBtn">Delete</button><br/>
+    <input type="radio" name="q${i}"> <input type="text" class="input1" name="FirstName${i}"><br/>  
+    <input type="radio" name="q${i}"> <input type="text" class="input2" name="FirstName${i}"><br/>  
+    <input type="radio" name="q${i}"> <input type="text" class="input3" name="FirstName${i}"><br/>  
+    <input type="radio" name="q${i}"> <input type="text" class="input4" name="FirstName${i}"><br/>
     </div>`;
 
     for (let k = 0; k < questionBank.length; k++) {
       main.innerHTML += oneQAset;
     }
+  }
+  downloadValues();
+};
+
+const downloadValues = () => {
+  for (let k = 0; k < questionBank.length; k++) {
+    $(`.textArea`)[k].value = questionBank[k].textArea;
+    $(`.input1`)[k].value = questionBank[k].input1;
+    $(`.input2`)[k].value = questionBank[k].input2;
+    $(`.input3`)[k].value = questionBank[k].input3;
+    $(`.input4`)[k].value = questionBank[k].input4;
+    
   }
 };
 
