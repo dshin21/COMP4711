@@ -1,6 +1,6 @@
 let main = $("#main")[0];
 let addBtn = $("#addBtn")[0];
-
+let saveBtn = $("#saveBtn")[0];
 let questionBank = [];
 let i = 0;
 
@@ -29,13 +29,7 @@ addBtn.onclick = () => {
 };
 
 const reRenderAdd = () => {
-  if (i == 1) {
-    main.innerHTML += questionBank[0];
-  } else {
-    for (let j = questionBank.length - 1; j < questionBank.length; ++j) {
-      main.innerHTML += questionBank[j];
-    }
-  }
+  main.innerHTML += questionBank[questionBank.length - 1];
 };
 
 const reRenderDelete = id => {
@@ -44,4 +38,9 @@ const reRenderDelete = id => {
   if (i > 0) i--;
 };
 
-// let temp = JSON.parse(localStorage.getItem("questionBank"));
+saveBtn.onclick = () => {
+  //TODO: save form inputs
+  alert("Saved!");
+};
+
+// localStorage.getItem("questionBank");
