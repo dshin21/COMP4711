@@ -5,6 +5,7 @@ let questionBank = [];
 let i = 0;
 
 addBtn.onclick = () => {
+  i++;
   let oneQAset = `<div id='Q${i}'>
     <div>Question Text: </div>
     <textarea class='qText${i}' rows="4" cols="50"></textarea><br/>                
@@ -13,39 +14,34 @@ addBtn.onclick = () => {
     <input type="radio" name="gender${i}" value="male"> <input type="text" name="FirstName${i}"><br/>  
     <input type="radio" name="gender${i}" value="male"> <input type="text" name="FirstName${i}"><br/>  
     <input type="radio" name="gender${i}" value="male"> <input type="text" name="FirstName${i}"><br/>
-    <button type="button" id="deleteBtn${i}">Delete</button>  
-    </div><br/>`;
-
+    <button type="button" id="${i}" class="deleteBtn">Delete</button><br/>
+    </div>`;
   questionBank.push(oneQAset);
-  localStorage.setItem("questionBank", JSON.stringify(questionBank));
   reRenderAdd();
-  let deleteBtn = document.getElementById(`deleteBtn${i}`);
 
-  deleteBtn.onclick = id => {
-    let deleteID = id.srcElement.id;
-    let deleteIDNum = deleteBtn.id.substring(deleteID.length - 1);
+  for (let k = 0; k < $(".deleteBtn").length; k++) {
+    let deleteBtn = $(".deleteBtn")[k];
 
-    questionBank.pop();
-    localStorage.setItem("questionBank", JSON.stringify(questionBank));
-    reRenderDelete(deleteIDNum);
-  };
-  i++;
+    deleteBtn.onclick = () => {
+      reRenderDelete(deleteBtn.id);
+    };
+  }
 };
 
 const reRenderAdd = () => {
-  let temp = JSON.parse(localStorage.getItem("questionBank"));
   if (i == 1) {
-    main.innerHTML += temp[0];
+    main.innerHTML += questionBank[0];
   } else {
-    for (let j = temp.length - 1; j < temp.length; ++j) {
-      main.innerHTML += temp[j];
+    for (let j = questionBank.length - 1; j < questionBank.length; ++j) {
+      main.innerHTML += questionBank[j];
     }
   }
 };
 
-const reRenderDelete = deleteID => {
-  let deleteBtn = document.getElementById(`Q${deleteID}`);
-  let temp = JSON.parse(localStorage.getItem("questionBank"));
+const reRenderDelete = id => {
+  let deleteBtn = document.getElementById(`Q${id}`);
   deleteBtn.remove();
-  i--;
+  if (i > 0) i--;
 };
+
+// let temp = JSON.parse(localStorage.getItem("questionBank"));
