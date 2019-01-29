@@ -24,10 +24,10 @@ const addNewQuestion = () => {
   <div>Question Text: </div>
   <textarea class='textArea' rows="4" cols="50"></textarea><br/>                
   <div>Answers: </div>
-  <input type="radio" name="q${i}"> <input type="text" class="input1" name="FirstName${i}"><br/>  
-  <input type="radio" name="q${i}"> <input type="text" class="input2" name="FirstName${i}"><br/>  
-  <input type="radio" name="q${i}"> <input type="text" class="input3" name="FirstName${i}"><br/>  
-  <input type="radio" name="q${i}"> <input type="text" class="input4" name="FirstName${i}"><br/>
+  <input type="radio" name='Q${i}' class="radio1"> <input type="text" class="input1" name="FirstName${i}"><br/>  
+  <input type="radio" name='Q${i}' class="radio2"> <input type="text" class="input2" name="FirstName${i}"><br/>  
+  <input type="radio" name='Q${i}' class="radio3"> <input type="text" class="input3" name="FirstName${i}"><br/>  
+  <input type="radio" name='Q${i}' class="radio4"> <input type="text" class="input4" name="FirstName${i}"><br/>
   <button type="button" id="${i}" class="deleteBtn">Delete</button><br/>
   </div>`;
   questionBank.push(oneQAset);
@@ -60,6 +60,7 @@ const downloadValues = () => {
     $(`.input2`)[k].value = questionData[k].input2;
     $(`.input3`)[k].value = questionData[k].input3;
     $(`.input4`)[k].value = questionData[k].input4;
+    $(`.radio${questionData[0].answer}`)[k].checked = true;
   }
   updateLocalStorage();
 };
@@ -89,12 +90,18 @@ const addDeleteBtn = () => {
 const save = () => {
   let arr = [];
   for (let j = 0; j < $(`.textArea`).length; ++j) {
+    let answer;
+    if ($(`.radio1`)[j].checked) answer = 1;
+    if ($(`.radio2`)[j].checked) answer = 2;
+    if ($(`.radio3`)[j].checked) answer = 3;
+    if ($(`.radio4`)[j].checked) answer = 4;
     let temp = {
       textArea: $(`.textArea`)[j].value,
       input1: $(`.input1`)[j].value,
       input2: $(`.input2`)[j].value,
       input3: $(`.input3`)[j].value,
-      input4: $(`.input4`)[j].value
+      input4: $(`.input4`)[j].value,
+      answer: answer
     };
     arr.push(temp);
   }
