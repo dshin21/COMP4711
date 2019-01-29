@@ -53,12 +53,13 @@ const reRender = () => {
 
 const downloadValues = () => {
   retrieveLocalStorage();
-  for (let k = 0; k < i; k++) {
-    if ($(`.textArea`)[k]) $(`.textArea`)[k].value = questionBank[k].textArea;
-    if ($(`.input1`)[k]) $(`.input1`)[k].value = questionBank[k].input1;
-    if ($(`.input2`)[k]) $(`.input2`)[k].value = questionBank[k].input2;
-    if ($(`.input3`)[k]) $(`.input3`)[k].value = questionBank[k].input3;
-    if ($(`.input4`)[k]) $(`.input4`)[k].value = questionBank[k].input4;
+  let questionData = JSON.parse(localStorage.getItem("questionData"));
+  for (let k = 0; k < questionBank.length; k++) {
+    $(`.textArea`)[k].value = questionData[k].textArea;
+    $(`.input1`)[k].value = questionData[k].input1;
+    $(`.input2`)[k].value = questionData[k].input2;
+    $(`.input3`)[k].value = questionData[k].input3;
+    $(`.input4`)[k].value = questionData[k].input4;
   }
   updateLocalStorage();
 };
@@ -85,5 +86,21 @@ const addDeleteBtn = () => {
   }
 };
 
+const save = () => {
+  let arr = [];
+  for (let j = 0; j < $(`.textArea`).length; ++j) {
+    let temp = {
+      textArea: $(`.textArea`)[j].value,
+      input1: $(`.input1`)[j].value,
+      input2: $(`.input2`)[j].value,
+      input3: $(`.input3`)[j].value,
+      input4: $(`.input4`)[j].value
+    };
+    arr.push(temp);
+  }
+  localStorage.setItem("questionData", JSON.stringify(arr));
+};
+
+saveBtn.onclick = save;
 addBtn.onclick = addNewQuestion;
 reRender();

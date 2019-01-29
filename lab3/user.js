@@ -1,5 +1,6 @@
 let main = $("#main")[0];
 let questionBank = JSON.parse(localStorage.getItem("questionBank"));
+let questionData = JSON.parse(localStorage.getItem("questionData"));
 let i = 1;
 
 const renderQuestions = () => {
@@ -25,12 +26,11 @@ const renderQuestions = () => {
 
 const downloadValues = () => {
   for (let k = 0; k < questionBank.length; k++) {
-    $(`.textArea`)[k].value = questionBank[k].textArea;
-    $(`.input1`)[k].value = questionBank[k].input1;
-    $(`.input2`)[k].value = questionBank[k].input2;
-    $(`.input3`)[k].value = questionBank[k].input3;
-    $(`.input4`)[k].value = questionBank[k].input4;
-    
+    $(`.textArea`)[k].value = questionData[k].textArea;
+    $(`.input1`)[k].value = questionData[k].input1;
+    $(`.input2`)[k].value = questionData[k].input2;
+    $(`.input3`)[k].value = questionData[k].input3;
+    $(`.input4`)[k].value = questionData[k].input4;
   }
 };
 
