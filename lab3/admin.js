@@ -1,4 +1,4 @@
-localStorage.clear();
+// localStorage.clear();
 let main = $("#main");
 let addBtn = $("#addBtn")[0];
 let saveBtn = $("#saveBtn")[0];
@@ -32,15 +32,21 @@ const addNewQuestion = () => {
   </div>`;
   questionBank.push(oneQAset);
   i++;
-
+  main.append(questionBank[questionBank.length - 1]);
   updateLocalStorage();
-  reRender();
   addDeleteBtn();
 };
 
 const reRender = () => {
   retrieveLocalStorage();
-  main.append(questionBank[questionBank.length - 1]);
+
+  i = questionBank.length;
+
+  for (let j = 0; j < i; ++j) {
+    main.append(questionBank[j]);
+  }
+
+  addDeleteBtn();
   updateLocalStorage();
   downloadValues();
 };
@@ -65,9 +71,8 @@ const addDeleteBtn = () => {
       console.log("deleting id: " + deleteBtn.id);
       $(`#Q${deleteBtn.id}`)[0].remove();
       questionBank.forEach(e => {
-        let temp = e.substring(10, 12);
         console.log(questionBank);
-        questionBank = questionBank.filter((e, index, arr) => {
+        questionBank = questionBank.filter(e => {
           return (
             e.charAt(10) == deleteBtn.id || deleteBtn.id == e.substring(10, 12)
           );
@@ -82,7 +87,3 @@ const addDeleteBtn = () => {
 
 addBtn.onclick = addNewQuestion;
 reRender();
-// create 2 functions, update localstorage & retrieve local storage
-// use all values from the localstorage
-
-// TODO: same Q class names -> delete id by iterating
