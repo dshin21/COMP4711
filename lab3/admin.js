@@ -3,12 +3,11 @@ let main = $("#main");
 let addBtn = $("#addBtn")[0];
 let saveBtn = $("#saveBtn")[0];
 let i = 0;
-let questionBank = [];
+let questionBank;
 
 const updateLocalStorage = () => {
   localStorage.setItem("questionBank", JSON.stringify(questionBank));
   questionBank = JSON.parse(localStorage.getItem("questionBank"));
-  // i = questionBank.length;
 };
 
 const retrieveLocalStorage = () => {
@@ -17,7 +16,6 @@ const retrieveLocalStorage = () => {
   } else {
     questionBank = JSON.parse(localStorage.getItem("questionBank"));
   }
-  // i = questionBank.length;
 };
 
 const addNewQuestion = () => {
@@ -34,6 +32,7 @@ const addNewQuestion = () => {
   </div>`;
   questionBank.push(oneQAset);
   i++;
+
   updateLocalStorage();
   reRender();
   addDeleteBtn();
@@ -41,7 +40,6 @@ const addNewQuestion = () => {
 
 const reRender = () => {
   retrieveLocalStorage();
-
   main.append(questionBank[questionBank.length - 1]);
   updateLocalStorage();
   downloadValues();
@@ -50,7 +48,6 @@ const reRender = () => {
 const downloadValues = () => {
   retrieveLocalStorage();
   for (let k = 0; k < i; k++) {
-    // console.log("downloading: " + k);
     if ($(`.textArea`)[k]) $(`.textArea`)[k].value = questionBank[k].textArea;
     if ($(`.input1`)[k]) $(`.input1`)[k].value = questionBank[k].input1;
     if ($(`.input2`)[k]) $(`.input2`)[k].value = questionBank[k].input2;
@@ -66,17 +63,17 @@ const addDeleteBtn = () => {
 
     deleteBtn.onclick = () => {
       console.log("deleting id: " + deleteBtn.id);
+      $(`#Q${deleteBtn.id}`)[0].remove();
       questionBank.forEach(e => {
         let temp = e.substring(10, 12);
-        if (deleteBtn.id === temp.charAt(0) || deleteBtn.id === e.substring(10,12)) {
-          console.log("deleting id: " + deleteBtn.id);
-          console.log(questionBank);
-          questionBank.filter((value, index, arr) => {
-            console.log(e.charAt(10));
-          });
-          $(`#Q${deleteBtn.id}`)[0].remove();
-          updateLocalStorage();
-        }
+        console.log(questionBank);
+        questionBank = questionBank.filter((e, index, arr) => {
+          return (
+            e.charAt(10) == deleteBtn.id || deleteBtn.id == e.substring(10, 12)
+          );
+        });
+        console.log(questionBank);
+        updateLocalStorage();
       });
       updateLocalStorage();
     };
@@ -84,6 +81,7 @@ const addDeleteBtn = () => {
 };
 
 addBtn.onclick = addNewQuestion;
+reRender();
 // create 2 functions, update localstorage & retrieve local storage
 // use all values from the localstorage
 
