@@ -60,10 +60,10 @@ const validate = () => {
 const highlightAnswers = () => {
   let k = 0;
   let score = 0;
-  for (let j = 0; j < validationArr.length + 1 / 2; j += 2) {
+  for (let j = 0; j <= validationArr.length / 2; j += 2) {
     let userAnswer = validationArr[j];
     let correctAnswer = validationArr[j + 1];
-    console.log(j);
+    // console.log(j);
     if ($(`.input${userAnswer}`)[k])
       $(`.input${userAnswer}`)[k].style.backgroundColor = "green";
     if ($(`.input${correctAnswer}`)[k])
