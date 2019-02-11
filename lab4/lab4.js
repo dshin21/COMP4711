@@ -1,9 +1,10 @@
 const http = require("http");
 const port = process.env.PORT || 3000;
 const server = http.createServer((req, res) => {
+  let time = new Date();
   res.statusCode = 200;
   res.setHeader("Content-Type", "text/html");
-  res.end("<h1>Hello World</h1>");
+  res.end(time.getHours() + ":" + time.getMinutes() + "\n");
 });
 server.listen(port, () => {
   console.log(`Server running at port ` + port);
